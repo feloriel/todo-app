@@ -21,12 +21,14 @@ class TodoList extends Component {
   }
 
   onDragStart = (e, id) => {
+    const parent = e.target.parentNode.parentNode;
+    const parentRect = parent.getBoundingClientRect();
+    parent.style.opacity = 0.01;
+      
     this.draggedItem = this.findById(id);
-    e.dataTransfer.effectAllowed = "move";
-    e.dataTransfer.setData("text/html", e.target);
-    e.dataTransfer.setDragImage(e.target, 20, 20);
+    e.dataTransfer.setDragImage(parent, parentRect.width * 1.5, parentRect.height / 2);
   }
-
+    
   onDragOver = id => {
     const draggedOverItem = this.findById(id);
     // if the item is dragged over itself, ignore
@@ -35,14 +37,18 @@ class TodoList extends Component {
     }
 
     const index = this.props.tasks.findIndex(task => task.id === id);
-
+    
     // filter out the currently dragged item
     let tasks = this.props.tasks.filter(task => task !== this.draggedItem);
     
     // add the dragged item after the dragged over item
     tasks.splice(index, 0, this.draggedItem);
-
+    
     this.props.setTasks(tasks);
+  }
+    
+  onDragEnd = (e) => {
+    e.target.parentNode.parentNode.style.opacity = 1;
   }
 
   render() {
@@ -59,6 +65,7 @@ class TodoList extends Component {
               removeTask={removeTask}
               onDragOver={this.onDragOver}
               onDragStart={this.onDragStart}
+              onDragEnd={this.onDragEnd}
             />
           )
         }

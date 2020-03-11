@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faBars } from '@fortawesome/free-solid-svg-icons';
 
 class TodoListItem extends Component {
   render() {
@@ -7,25 +9,32 @@ class TodoListItem extends Component {
       removeTask,
       toggleCheck,
       onDragOver,
-      onDragStart
+      onDragStart,
+      onDragEnd
     } = this.props;
 
     return(
       <div 
-        className="item" 
-        onDragOver={() => onDragOver(task.id)}
-        onDragStart={e => onDragStart(e, task.id)}
-        draggable
+        className="task" 
+        onDragOver={(e) => onDragOver(task.id)}
+        onDragEnd={onDragEnd}
       >
-        <div>
-          <input 
-            type="checkbox"
-            checked={task.completed}
-            onChange={() => toggleCheck(task.id)}
-          />
-          {task.task}
+        <div className="task-description">
+          <span 
+            className={`checkbox ${task.completed ? 'checked' : ''}`} 
+            onClick={() => toggleCheck(task.id)}
+          >
+          </span>
+          <span>{task.task}</span>
         </div>
-        <button onClick={() => removeTask(task.id)}>X</button>
+        <div className="action-btns">
+          <button className="btn" onClick={() => removeTask(task.id)}>
+            <FontAwesomeIcon icon={faTrash} color="white" />
+          </button>
+          <button className="btn" onDragStart={e => onDragStart(e, task.id)} draggable>
+            <FontAwesomeIcon icon={faBars} color="white" />
+          </button>
+        </div>
       </div>
     );
   }

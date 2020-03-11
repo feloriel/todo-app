@@ -7,9 +7,18 @@ class TodoFilter extends Component {
 
     return(
       <React.Fragment>
-        {Object.values(filters).map((filter, index) => 
-          <button key={index} onClick={() => setTasksFilter(filter)}>{filter}</button>
-        )}
+        <div className="filter-buttons">
+          {Object.values(filters).map((filter, index) => 
+            <button 
+              key={index} 
+              name={filter}
+              onClick={() => setTasksFilter(filter) }
+              className={this.props.filter === filter ? 'active': null} 
+            >
+              {filter}
+            </button>
+          )}
+        </div>
       </React.Fragment>
     );
   }

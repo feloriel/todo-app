@@ -16,22 +16,21 @@ class Todo extends Component {
     } = this.props;
 
     return(
-      <div>
-        <h1>To-Do</h1>
-        <div>
-          <TodoInput addTask={addTask} />
-          <TodoList
-            removeTask={removeTask}
-            toggleCheck={toggleCheck}
-            tasks={tasks}
-            filter={filter}
-            setTasks={setTasks}
-          />
-          <TodoFilter
-            tasks={tasks}
-            setTasksFilter={setTasksFilter}
-          />
-        </div>
+      <div className="todo-container">
+        <h1>Todo list</h1>
+        <TodoInput addTask={addTask} />
+        <TodoFilter
+          tasks={tasks}
+          filter={filter}
+          setTasksFilter={setTasksFilter}
+        />
+        <TodoList
+          removeTask={removeTask}
+          toggleCheck={toggleCheck}
+          tasks={tasks}
+          filter={filter}
+          setTasks={setTasks}
+        />
       </div>
     );
   }

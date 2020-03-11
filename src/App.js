@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Todo from './components/Todo/Todo';
+import filters from './components/Todo/filters';
 
 class App extends Component {
   state = {
     tasks: [],
-    filter: ''
+    filter: filters.all
   }
 
   componentDidMount() {
@@ -58,17 +59,15 @@ class App extends Component {
     const { tasks, filter } = this.state;
 
     return (
-      <div className="app">
-        <Todo
-          setTasksFilter={this.setTasksFilter}
-          filter={filter}
-          addTask={this.addTask}
-          removeTask={this.removeTask}
-          toggleCheck={this.toggleCheck}
-          tasks={tasks}
-          setTasks={this.setTasks}
-        />
-      </div>
+      <Todo
+        setTasksFilter={this.setTasksFilter}
+        filter={filter}
+        addTask={this.addTask}
+        removeTask={this.removeTask}
+        toggleCheck={this.toggleCheck}
+        tasks={tasks}
+        setTasks={this.setTasks}
+      />
     );
   }
 }
