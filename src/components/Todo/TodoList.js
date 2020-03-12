@@ -23,10 +23,10 @@ class TodoList extends Component {
   onDragStart = (e, id) => {
     const parent = e.target.parentNode.parentNode;
     const parentRect = parent.getBoundingClientRect();
-    parent.style.opacity = 0.01;
-      
+    parent.style.opacity = 0.5;
+    
     this.draggedItem = this.findById(id);
-    e.dataTransfer.setDragImage(parent, parentRect.width * 1.5, parentRect.height / 2);
+    e.dataTransfer.setDragImage(parent, parentRect.width, parentRect.height / 2);
   }
     
   onDragOver = id => {
@@ -55,7 +55,7 @@ class TodoList extends Component {
     const { tasks, removeTask, toggleCheck } = this.props;
 
     return(
-      <React.Fragment>
+      <div>
         {tasks && 
           this.filteredTasks().map(task => 
             <TodoListItem
@@ -69,7 +69,7 @@ class TodoList extends Component {
             />
           )
         }
-      </React.Fragment>
+      </div>
     );
   }
 }
